@@ -1,0 +1,49 @@
+show dbs;
+
+use ecommerce;
+
+db.mensajes.insert({email: "usuario1@mail.com", message: "Hola"})
+db.mensajes.insert({email: "usuario2@mail.com", message: "¿Como estas?"})
+db.mensajes.insert({email: "usuario1@mail.com", message: "Todo bien, ¿vos?"})
+db.mensajes.insert({email: "usuario2@mail.com", message: "¡Bien! ¿Como van los desafios de Coder?"})
+db.mensajes.insert({email: "usuario1@mail.com", message: "Medios flojos, ¿vos?"})
+db.mensajes.insert({email: "usuario2@mail.com", message: "Igual, jaja. ¡Ponete a picar teclas!"})
+db.mensajes.insert({email: "usuario1@mail.com", message: "Me parece que enemos que dedicarnos a otra cosa."})
+db.mensajes.insert({email: "usuario2@mail.com", message: "Si. Que te parece peluqueria?"})
+db.mensajes.insert({email: "usuario1@mail.com", message: "Si, es lo mio. Mañana nos inscribimos"})
+db.mensajes.insert({email: "usuario2@mail.com", message: "Hasta luego!"})
+
+db.productos.insert({nombre: "Coca Cola", descripcion: "Bebida cola", codigo:123, precio:100});
+db.productos.insert({nombre: "Calculadora cientifica", descripcion: "Calculadora con muchas teclas", codigo:456, precio:120});
+db.productos.insert({nombre: "Cuaderno", descripcion: "90 hojas y tapa dura", codigo:789, precio:580});
+db.productos.insert({nombre: "Funda celular", descripcion: "Xiaomi POCO", codigo:101, precio:900});
+db.productos.insert({nombre: "Pulsera", descripcion: "Pulsera de plastico", codigo:121, precio:1280});
+db.productos.insert({nombre: "Collar de perro", descripcion: "Ideal para que no se muevan, jajaj", codigo:141, precio:1700});
+db.productos.insert({nombre: "Pantalon de Jean", descripcion: "Pantalon bien apretado", codigo:161, precio:2300});
+db.productos.insert({nombre: "Blazer", descripcion: "Saco para queda bien fachero", codigo:181, precio:2860});
+db.productos.insert({nombre: "Remera", descripcion: "Remera de los Rolling", codigo:202, precio:3350});
+db.productos.insert({nombre: "Agua Malena", descripcion: "Agua directamente de la canilla", codigo:222 ,precio:4786});
+
+db.mensajes.find();
+db.productos.find();
+
+db.mensajes.estimatedDocumentCount();
+db.productos.estimatedDocumentCount();
+
+db.productos.insert({nombre: "Sopa de caracol", descripcion: "Wata negue consup", codigo:242, precio:474});
+
+db.productos.find({precio: {$lt: 1000}}, {"nombre": 1});
+db.productos.find({precio: {$in: [1000, 3000]}}, {"nombre": 1});
+db.productos.find({precio: {$gt: 3000}}, {"nombre": 1});
+db.productos.find({}).sort({"precio":1}).skip(2).limit(1);
+
+db.productos.updateMany({}, {$set: {"stock": 100}}, {upsert: true});
+
+db.productos.update({precio: {$gt: 4000}}, {$set: {"stock": 0}}, {multi: true});
+
+db.productos.remove({precio: {$lt: 1000}});
+
+
+use admin
+
+db.createUser({user: "pepe", pwd: "asd456", roles: [{role: "read", db:"ecommerce"}]})
